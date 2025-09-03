@@ -1,10 +1,12 @@
 export default function recommend(req, res) {
   const { clima, interesses, data } = req.body;
 
-  // exemplo de resposta mockada (depois podemos integrar com IA/HuggingFace)
+  // Exemplo de resposta mockada (simulação de IA)
   const resposta = {
     destino: "Gramado - RS",
-    motivo: `Ótimo para clima ${clima}, com foco em ${interesses}, data ideal em ${data}`
+    motivo: `Ótimo para clima ${clima || "não informado"}, 
+             com foco em ${interesses || "interesses variados"}, 
+             data ideal em ${data || "qualquer época do ano"}.`
   };
 
   res.json(resposta);

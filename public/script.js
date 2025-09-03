@@ -15,6 +15,10 @@ document.querySelector("form").addEventListener("submit", async (e) => {
       body: JSON.stringify({ clima, interesses, data })
     });
 
+    if (!res.ok) {
+      throw new Error("Erro na resposta da API");
+    }
+
     const dataResposta = await res.json();
     respostaDiv.innerText = `🌍 Destino: ${dataResposta.destino}\n💡 Motivo: ${dataResposta.motivo}`;
   } catch (error) {
