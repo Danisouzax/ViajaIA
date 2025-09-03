@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Viaja.AI</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Viaja<span>.AI</span></h1>
+      <p>Seu assistente de viagens com inteligência artificial</p>
+    </header>
+
+    <main>
+      <form id="recommendForm">
+        <label for="climate">Clima preferido:</label>
+        <select id="climate" name="climate" required>
+          <option value="">Selecione</option>
+          <option value="quente">Quente</option>
+          <option value="frio">Frio</option>
+          <option value="tropical">Tropical</option>
+        </select>
+
+        <label for="interests">Interesses:</label>
+        <input type="text" id="interests" name="interests" placeholder="Praia, aventura, cultura..." required />
+
+        <label for="date">Data da viagem:</label>
+        <input type="date" id="date" name="date" required />
+
+        <button type="submit">Encontrar destino ideal</button>
+      </form>
+
+      <div id="result"></div>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
