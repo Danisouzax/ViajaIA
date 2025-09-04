@@ -20,12 +20,22 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const dataResult = await response.json();
-      document.getElementById("resultado").innerText =
-        dataResult.resultado || "Nenhuma recomendação encontrada.";
+
+      // Formatar resultado
+      const resultadoDiv = document.getElementById("resultado");
+      resultadoDiv.innerHTML = `
+        <h3>🌍 Sugestão de Destino</h3>
+        <p>${dataResult.resultado}</p>`;
+
     } catch (error) {
       console.error("Erro ao buscar recomendação:", error);
-      document.getElementById("resultado").innerText =
-        "Erro ao buscar recomendação.";
+      document.getElementById("resultado").innerHTML = `
+  <div class="resultado-card erro">
+    <h3>❌ Erro</h3>
+    <p>Erro ao buscar recomendação.</p>
+  </div>
+`;
+
     }
   });
 });
