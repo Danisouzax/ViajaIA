@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const prompt = `Sugira um destino de viagem com clima ${climate}, interesse em ${interests} e data da viagem em ${date}.`;
 
     try {
-      const response = await fetch("/api/recommend", {
+      const response = await fetch("https://viaja-ia.vercel.app/api/recommend", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt }),
