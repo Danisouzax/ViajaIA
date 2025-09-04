@@ -1,3 +1,5 @@
+// api/recommend.js
+
 export default async function handler(req, res) {
   if (req.method === "POST") {
     const { prompt } = req.body;
@@ -18,10 +20,11 @@ export default async function handler(req, res) {
 
       const result = await response.json();
 
-      console.log("Resposta Cohere:", result);
+      console.log("Resposta Cohere:", result); // 👀 debug nos logs da Vercel
 
       let output = "Não consegui gerar sugestão.";
-      if (result.generations && result.generations.length > 0) {
+
+      if (result?.generations && result.generations.length > 0) {
         output = result.generations[0].text.trim();
       }
 
