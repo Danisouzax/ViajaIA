@@ -1,28 +1,28 @@
-document.querySelector("form").addEventListener("submit", async (e) => {
+document.getElementById("travel-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const clima = document.querySelector("#clima").value;
-  const interesses = document.querySelector("#interesses").value;
-  const data = document.querySelector("#data").value;
+  const clima = document.getElementById("clima").value;
+  const interesses = document.getElementById("interesses").value;
+  const data = document.getElementById("data").value;
 
-  const respostaDiv = document.querySelector("#resposta");
-  respostaDiv.innerText = "🔄 Buscando recomendação...";
+  const prompt = `Sugira um destino de viagem com clima ${clima}, interesse em ${interesses} e data da viagem em ${data}.`;
 
   try {
-    const res = await fetch("/api/recommend", {
+    const response = await fetch("/api/recommend", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ clima, interesses, data })
+      body: JSON.stringify({ prompt }),
     });
 
-    if (!res.ok) {
+    if (!response.ok) {
       throw new Error("Erro na resposta da API");
     }
 
-    const dataResposta = await res.json();
-    respostaDiv.innerText = `🌍 Destino: ${dataResposta.destino}\n💡 Motivo: ${dataResposta.motivo}`;
+    const dataResult = await response.json();
+    document.getElementById("resultado").innerText = dataResult.resultado || "Nenhuma recomendação encontrada.";
   } catch (error) {
-    respostaDiv.innerText = "❌ Erro ao buscar recomendação.";
-    console.error(error);
+    console.error("Erro ao buscar recomendação:", error);
+    document.getElementById("resultado").innerText = "Erro ao buscar recomendação.";
   }
 });
+
