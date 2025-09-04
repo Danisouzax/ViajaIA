@@ -14,7 +14,7 @@ export default async function handler(req, res) {
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${process.env.HF_API_KEY}`,
+            Authorization: `Bearer ${process.env.hf_api_key}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ inputs: prompt }),
