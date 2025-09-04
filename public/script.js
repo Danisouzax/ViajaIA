@@ -1,32 +1,36 @@
-export default async function handler(req, res) {
-  if (req.method === "POST") {
-    try {
-      const { prompt } = req.body;
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("travel-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-      // Chamada para a API da OpenAI (ou outro modelo que você tiver configurado)
-      const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const climate = document.getElementById("climate").value;
+    const interests = document.getElementById("interests").value;
+    const date = document.getElementById("date").value;
+
+    const prompt = `Sugira um destino de viagem com clima ${climate}, interesse em ${interests} e data da viagem em ${date}.`;
+
+    try {
+      const response = await fetch("/api/recommend", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, // Defina no Vercel → Settings → Environment Variables
-        },
-        body: JSON.stringify({
-          model: "gpt-3.5-turbo",
-          messages: [{ role: "user", content: prompt }],
-          max_tokens: 150,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt }),
       });
 
-      const data = await response.json();
+      if (!response.ok) throw new Error("Erro na resposta da API");
 
-      const text = data.choices?.[0]?.message?.content || "Não consegui gerar uma sugestão.";
+      const dataResult = await response.json();
 
-      res.status(200).json({ resultado: text });
+      const resultadoDiv = document.getElementById("resultado");
+      resultadoDiv.innerHTML = `
+        <div class="resultado-card">
+          <h3>✨ Sugestão de Destino</h3>
+          <p>${dataResult.resultado}</p>
+        </div>
+      `;
     } catch (error) {
-      console.error("Erro na API:", error);
-      res.status(500).json({ error: "Erro ao processar a sugestão" });
+      console.error("Erro ao buscar recomendação:", error);
+      document.getElementById("resultado").innerHTML = `
+        <p style="color: red;">❌ Erro ao buscar recomendação.</p>
+      `;
     }
-  } else {
-    res.status(405).json({ error: "Método não permitido" });
-  }
-}
+  });
+});

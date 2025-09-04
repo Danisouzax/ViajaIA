@@ -77,6 +77,20 @@ button:hover {
   color: #064e3b; /* verde mais escuro para o texto */
   font-family: Arial, sans-serif;
 }
+.resultado-card.erro {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #ffe6e6;   /* vermelho clarinho */
+  border: 1px solid #cc0000;   /* vermelho escuro */
+  color: #990000;              /* vermelho texto */
+  font-family: Arial, sans-serif;
+}
+
+.resultado-card.erro h3 {
+  margin-top: 0;
+  color: #cc0000; /* vermelho título */
+}
 
 .resultado-card h3 {
   margin-top: 0;
