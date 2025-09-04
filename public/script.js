@@ -1,41 +1,32 @@
-document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("travel-form").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const climate = document.getElementById("climate").value;
-    const interests = document.getElementById("interests").value;
-    const date = document.getElementById("date").value;
-
-    const prompt = `Sugira um destino de viagem com clima ${climate}, interesse em ${interests} e data da viagem em ${date}.`;
-
+export default async function handler(req, res) {
+  if (req.method === "POST") {
     try {
-      const response = await fetch("https://viaja-ia.vercel.app/api/recommend", {
+      const { prompt } = req.body;
+
+      // Chamada para a API da OpenAI (ou outro modelo que você tiver configurado)
+      const response = await fetch("https://api.openai.com/v1/chat/completions", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`, // Defina no Vercel → Settings → Environment Variables
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [{ role: "user", content: prompt }],
+          max_tokens: 150,
+        }),
       });
 
-      if (!response.ok) {
-        throw new Error("Erro na resposta da API");
-      }
+      const data = await response.json();
 
-      const dataResult = await response.json();
+      const text = data.choices?.[0]?.message?.content || "Não consegui gerar uma sugestão.";
 
-      // Formatar resultado
-      const resultadoDiv = document.getElementById("resultado");
-      resultadoDiv.innerHTML = `
-        <h3>🌍 Sugestão de Destino</h3>
-        <p>${dataResult.resultado}</p>`;
-
+      res.status(200).json({ resultado: text });
     } catch (error) {
-      console.error("Erro ao buscar recomendação:", error);
-      document.getElementById("resultado").innerHTML = `
-  <div class="resultado-card erro">
-    <h3>❌ Erro</h3>
-    <p>Erro ao buscar recomendação.</p>
-  </div>
-`;
-
+      console.error("Erro na API:", error);
+      res.status(500).json({ error: "Erro ao processar a sugestão" });
     }
-  });
-});
+  } else {
+    res.status(405).json({ error: "Método não permitido" });
+  }
+}

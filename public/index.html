@@ -37,41 +37,8 @@
     </main>
   </div>
 
-  <!-- <script src="script.js"></script> -->
-
-  <script type="module">
-    import { pipeline } from "https://cdn.jsdelivr.net/npm/@xenova/transformers/dist/transformers.min.js";
-
-    // carrega modelo GPT-2 (leve e rápido)
-    const generator = await pipeline("text-generation", "gpt2");
-
-    document.getElementById("travel-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const clima = document.getElementById("climate").value;
-      const interesses = document.getElementById("interests").value;
-      const data = document.getElementById("date").value;
-
-      const prompt = `Sugira um destino de viagem com clima ${clima}, interesse em ${interesses} e data da viagem em ${data}.`;
-
-      // mostra mensagem enquanto carrega
-      const resultadoDiv = document.getElementById("resultado");
-      resultadoDiv.innerHTML = "<p>Gerando sugestão...</p>";
-
-      try {
-        const output = await generator(prompt, { max_length: 50 });
-        resultadoDiv.innerHTML = `
-        <div class="resultado-card">
-          <h3>Sugestão de Destino</h3>
-          <p>${output[0].generated_text}</p>
-        </div>
-      `;
-      } catch (error) {
-        console.error(error);
-        resultadoDiv.innerHTML = "<p style='color:red;'>Erro ao gerar sugestão.</p>";
-      }
-    });
-  </script>
+  <script src="script.js"></script>
+  
 </body>
 
 </html>
