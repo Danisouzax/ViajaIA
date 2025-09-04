@@ -1,13 +1,12 @@
-export default function recommend(req, res) {
-  const { clima, interesses, data } = req.body;
+export default function handler(req, res) {
+  if (req.method === "POST") {
+    const { prompt } = req.body;
 
-  // Exemplo de resposta mockada (simulação de IA)
-  const resposta = {
-    destino: "Gramado - RS",
-    motivo: `Ótimo para clima ${clima || "não informado"}, 
-             com foco em ${interesses || "interesses variados"}, 
-             data ideal em ${data || "qualquer época do ano"}.`
-  };
-
-  res.json(resposta);
+    // Simulação: só retorna o prompt recebido
+    res.status(200).json({
+      resultado: `Você pediu uma sugestão com: ${prompt}`,
+    });
+  } else {
+    res.status(405).json({ error: "Método não permitido" });
+  }
 }
