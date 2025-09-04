@@ -17,21 +17,16 @@ export default async function handler(req, res) {
 
       const result = await response.json();
 
-      console.log("Resposta HF:", result); // 👈 log para debug
+      console.log("Resposta HF:", result); // 👀 para debug nos logs
 
-      // Tenta vários formatos possíveis
       let output = "Não consegui gerar sugestão.";
 
       if (Array.isArray(result)) {
-        if (result[0]?.generated_text) {
-          output = result[0].generated_text;
-        } else if (result[0]?.summary_text) {
-          output = result[0].summary_text;
-        } else if (typeof result[0] === "string") {
-          output = result[0];
+        if (typeof result[0] === "string") {
+          output = result[0]; // Caso venha ["Sugestão X"]
+        } else if (result[0]?.generated_text) {
+          output = result[0].generated_text; // Caso venha no formato antigo
         }
-      } else if (typeof result === "string") {
-        output = result;
       }
 
       res.status(200).json({ resultado: output });
