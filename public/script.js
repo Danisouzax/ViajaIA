@@ -15,10 +15,13 @@ document.addEventListener("DOMContentLoaded", () => {
         body: JSON.stringify({ prompt }),
       });
 
-      if (!response.ok) throw new Error("Erro na resposta da API");
+      if (!response.ok) {
+        throw new Error("Erro na resposta da API");
+      }
 
       const dataResult = await response.json();
 
+      // Exibir resultado estilizado
       const resultadoDiv = document.getElementById("resultado");
       resultadoDiv.innerHTML = `
         <div class="resultado-card">
@@ -28,6 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     } catch (error) {
       console.error("Erro ao buscar recomendação:", error);
+
       document.getElementById("resultado").innerHTML = `
         <p style="color: red;">❌ Erro ao buscar recomendação.</p>
       `;

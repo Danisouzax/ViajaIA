@@ -2,44 +2,33 @@ export default async function handler(req, res) {
   if (req.method === "POST") {
     const { prompt } = req.body;
 
-    console.log("📩 Prompt recebido:", prompt);
-
     try {
-      const response = await fetch(
-        "https://api-inference.huggingface.co/models/google/flan-t5-small?wait_for_model=true",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.hf_api_key}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ inputs: prompt }),
-        }
-      );
+      const response = await fetch("https://api.cohere.ai/v1/generate", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.COHERE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "command-xlarge-nightly", // modelo gratuito da Cohere
+          prompt: prompt,
+          max_tokens: 100,
+        }),
+      });
 
       const result = await response.json();
 
-      console.log("📩 Resposta HF bruta:", JSON.stringify(result, null, 2));
+      console.log("Resposta Cohere:", result);
 
       let output = "Não consegui gerar sugestão.";
-
-      // Trata diferentes formatos possíveis
-      if (Array.isArray(result)) {
-        if (typeof result[0] === "string") {
-          output = result[0]; // Caso venha como ["texto..."]
-        } else if (result[0]?.generated_text) {
-          output = result[0].generated_text; // Caso venha { generated_text: "..."}
-        }
-      } else if (result?.generated_text) {
-        output = result.generated_text;
-      } else if (result?.error) {
-        output = `⚠️ Erro do modelo: ${result.error}`;
+      if (result.generations && result.generations.length > 0) {
+        output = result.generations[0].text.trim();
       }
 
       res.status(200).json({ resultado: output });
     } catch (error) {
-      console.error("❌ Erro Hugging Face:", error);
-      res.status(500).json({ error: "Erro ao acessar Hugging Face" });
+      console.error("Erro Cohere:", error);
+      res.status(500).json({ error: "Erro ao acessar Cohere" });
     }
   } else {
     res.status(405).json({ error: "Método não permitido" });
