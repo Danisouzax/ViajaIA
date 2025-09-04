@@ -15,12 +15,12 @@ export default async function handler(req, res) {
           model: "command-xlarge-nightly", // modelo gratuito da Cohere
           prompt: prompt,
           max_tokens: 100,
+          temperature: 0.7, // dá mais criatividade
         }),
       });
 
       const result = await response.json();
-
-      console.log("Resposta Cohere:", result); // 👀 debug nos logs da Vercel
+      console.log("Resposta Cohere:", result); // 👀 veja nos logs da Vercel
 
       let output = "Não consegui gerar sugestão.";
 
