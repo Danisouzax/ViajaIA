@@ -78,24 +78,27 @@ button:hover {
   background-color: #004d40;
 }
 
-/* Resultado */
+/* Resultado simplificado */
 .resultado-card {
   margin-top: 20px;
-  padding: 15px;
-  background: #f1f8f6;
-  border: 1px solid #00796b;
+  padding: 20px;
+  background: #ffffff;   /* fundo branco liso */
+  border: 1px solid #ddd;
   border-radius: 8px;
   text-align: left;
-  white-space: pre-line; /* mantém quebras de linha */
-  overflow-wrap: break-word; /* evita estouro */
+  white-space: pre-line;
+  overflow-wrap: break-word;
   max-height: 400px;
-  overflow-y: auto; /* scroll se o texto for grande */
+  overflow-y: auto;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* sombra suave para destacar */
 }
 
 .resultado-card h3 {
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   color: #00796b;
+  font-size: 18px;
 }
+
 
 /* Loader */
 .loading {
