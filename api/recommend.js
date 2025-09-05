@@ -5,27 +5,26 @@ export default async function handler(req, res) {
     const { prompt } = req.body;
 
     try {
-      const response = await fetch("https://api.cohere.ai/v1/generate", {
+      const response = await fetch("https://api.cohere.ai/v1/chat", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.COHERE_API_KEY}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "command-xlarge-nightly", // ou "command"
-          prompt: prompt,
-          max_tokens: 100,
-          temperature: 0.7,
+          model: "command-r-plus", // modelo atualizado de chat
+          message: prompt,
         }),
       });
 
       const result = await response.json();
-      console.log("Resposta Cohere:", result); // log no Vercel
+      console.log("Resposta Cohere:", result); // aparece nos logs do Vercel
 
       let output = "Não consegui gerar sugestão.";
 
-      if (result.generations && result.generations.length > 0) {
-        output = result.generations[0].text.trim();
+      // A API de chat retorna o texto em `text`
+      if (result.text) {
+        output = result.text.trim();
       }
 
       res.status(200).json({ resultado: output });
