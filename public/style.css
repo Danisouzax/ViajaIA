@@ -1,32 +1,131 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #a8edea, #fed6e3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container principal */
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Header */
+header h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+header h1 span {
+  color: #00796b;
+}
+
+header p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* Formulário */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+label {
+  text-align: left;
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+input,
+select,
+button {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+button {
+  background-color: #00796b;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #004d40;
+}
+
+/* Resultado */
 .resultado-card {
   margin-top: 20px;
   padding: 15px;
-  background: #e8f5e9;
-  border: 1px solid #2e7d32;
+  background: #f1f8f6;
+  border: 1px solid #00796b;
   border-radius: 8px;
-  color: #1b5e20;
-  font-size: 1rem;
-  line-height: 1.6;
-  white-space: pre-wrap; /* quebra linhas preservando espaçamento */
-  word-wrap: break-word; /* evita overflow */
-  text-align: justify;   /* deixa o texto alinhado bonitinho */
-  max-width: 90%;        /* não deixa ocupar a tela toda */
-  margin-left: auto;     /* centraliza */
-  margin-right: auto;    /* centraliza */
+  text-align: left;
+  white-space: pre-line; /* mantém quebras de linha */
+  overflow-wrap: break-word; /* evita estouro */
+  max-height: 400px;
+  overflow-y: auto; /* scroll se o texto for grande */
 }
 
-/* Para telas grandes */
-@media (min-width: 768px) {
-  .resultado-card {
-    max-width: 700px; /* largura máxima no desktop */
-    font-size: 1.05rem;
-  }
+.resultado-card h3 {
+  margin-bottom: 10px;
+  color: #00796b;
 }
 
-/* Para celulares */
+/* Loader */
+.loading {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #00796b;
+  font-weight: bold;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* Responsividade */
 @media (max-width: 480px) {
-  .resultado-card {
-    font-size: 0.9rem;
-    padding: 12px;
+  .container {
+    max-width: 95%;
+    padding: 20px;
+  }
+
+  header h1 {
+    font-size: 22px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 13px;
   }
 }
