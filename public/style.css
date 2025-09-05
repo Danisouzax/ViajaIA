@@ -79,7 +79,7 @@ button:hover {
 }
 
 /* Resultado simplificado */
-.resultado-card h3 {
+.resultado-card {
   margin-top: 20px;
   padding: 20px;
   background: #ffffff;   /* fundo branco liso */
@@ -94,18 +94,12 @@ button:hover {
   color: #97f3e8;
   font-size: 18px;
 }
-/*
-.resultado-card h3 {
-  color: #97f3e8;
-  font-size: 18px;
-}*/
-
 
 /* Loader */
 .loading {
   margin-top: 15px;
   font-size: 14px;
-  color: #00796b;
+  color: #97f3e8;
   font-weight: bold;
   animation: blink 1s infinite;
 }
