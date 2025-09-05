@@ -1,98 +1,32 @@
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #a6f0f0, #b3d9ff);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 400px;
-}
-
-header h1 {
-  text-align: center;
-  color: #124e66;
-}
-
-header h1 span {
-  color: #2c7a7b;
-}
-
-header p {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-form label {
-  display: block;
-  margin-top: 1rem;
-}
-
-form input, form select {
-  width: 100%;
-  padding: 0.7rem;
-  margin-top: 0.3rem;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-button {
-  margin-top: 1.5rem;
-  width: 100%;
-  padding: 0.6rem;
-  background-color: #2c7a7b;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-button:hover {
-  background-color: #256a68;
-}
-
-#resultado {
-  margin-top: 1rem;
-  background-color: #e6f9f9;
-  padding: 1rem;
-  border-radius: 6px;
-}
 .resultado-card {
   margin-top: 20px;
   padding: 15px;
+  background: #e8f5e9;
+  border: 1px solid #2e7d32;
   border-radius: 8px;
-  background-color: #f0fdf4; /* verde bem clarinho */
-  border: 1px solid #16a34a; /* verde escuro */
-  color: #064e3b; /* verde mais escuro para o texto */
-  font-family: Arial, sans-serif;
-}
-.resultado-card.erro {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  background-color: #ffe6e6;   /* vermelho clarinho */
-  border: 1px solid #cc0000;   /* vermelho escuro */
-  color: #990000;              /* vermelho texto */
-  font-family: Arial, sans-serif;
+  color: #1b5e20;
+  font-size: 1rem;
+  line-height: 1.6;
+  white-space: pre-wrap; /* quebra linhas preservando espaçamento */
+  word-wrap: break-word; /* evita overflow */
+  text-align: justify;   /* deixa o texto alinhado bonitinho */
+  max-width: 90%;        /* não deixa ocupar a tela toda */
+  margin-left: auto;     /* centraliza */
+  margin-right: auto;    /* centraliza */
 }
 
-.resultado-card.erro h3 {
-  margin-top: 0;
-  color: #cc0000; /* vermelho título */
+/* Para telas grandes */
+@media (min-width: 768px) {
+  .resultado-card {
+    max-width: 700px; /* largura máxima no desktop */
+    font-size: 1.05rem;
+  }
 }
 
-.resultado-card h3 {
-  margin-top: 0;
-  color: #065f46; /* verde título */
+/* Para celulares */
+@media (max-width: 480px) {
+  .resultado-card {
+    font-size: 0.9rem;
+    padding: 12px;
+  }
 }
