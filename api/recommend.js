@@ -12,19 +12,18 @@ export default async function handler(req, res) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          model: "command-xlarge-nightly", // modelo gratuito da Cohere
+          model: "command-xlarge-nightly", // ou "command"
           prompt: prompt,
           max_tokens: 100,
-          temperature: 0.7, // dá mais criatividade
+          temperature: 0.7,
         }),
       });
 
       const result = await response.json();
-      console.log("Resposta Cohere:", result); // 👀 para debug no Vercel
+      console.log("Resposta Cohere:", result); // log no Vercel
 
       let output = "Não consegui gerar sugestão.";
 
-      // A Cohere retorna o texto dentro de generations[0].text
       if (result.generations && result.generations.length > 0) {
         output = result.generations[0].text.trim();
       }
