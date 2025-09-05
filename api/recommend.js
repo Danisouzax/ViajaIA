@@ -20,15 +20,17 @@ export default async function handler(req, res) {
       });
 
       const result = await response.json();
-      console.log("Resposta Cohere:", result); // 👀 veja nos logs da Vercel
+      console.log("Resposta Cohere:", result); // 👀 para debug no Vercel
 
       let output = "Não consegui gerar sugestão.";
 
-      if (result?.generations && result.generations.length > 0) {
+      // A Cohere retorna o texto dentro de generations[0].text
+      if (result.generations && result.generations.length > 0) {
         output = result.generations[0].text.trim();
       }
 
       res.status(200).json({ resultado: output });
+
     } catch (error) {
       console.error("Erro Cohere:", error);
       res.status(500).json({ error: "Erro ao acessar Cohere" });
